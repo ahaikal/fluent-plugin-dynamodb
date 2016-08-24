@@ -12,7 +12,7 @@ class DynamoDBOutput < Fluent::BufferedOutput
 
   def initialize
     super
-    require 'aws-sdk-v1'
+    require 'aws-sdk'
     require 'msgpack'
     require 'time'
     require 'uuidtools'
@@ -58,9 +58,9 @@ class DynamoDBOutput < Fluent::BufferedOutput
   end
 
   def restart_session(options)
-    config = AWS.config(options)
-    @batch = AWS::DynamoDB::BatchWrite.new(config)
-    @dynamo_db = AWS::DynamoDB.new(options)
+    config = Aws.config(options)
+    @batch = Aws::DynamoDB::BatchWrite.new(config)
+    @dynamo_db = Aws::DynamoDB.new(options)
   end
 
   def valid_table(table_name)
